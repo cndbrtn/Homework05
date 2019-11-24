@@ -1,16 +1,7 @@
 var calDay = moment().format("dddd MMMM Do YYYY");
 var currentTime = moment().format("h:mm");
 
-// var hourInput = {
-// };
-
-// localStorage.setItem({
-//     "UserInput": hourInput,
-//     "textarea":
-// })
-
-// var storageObj = {};
-// var storage = [];
+// fn to populate the page from localStorage
 function renderStorage() {
   var nineStorage = localStorage.getItem("9am");
   var tenStorage = localStorage.getItem("10am");
@@ -34,48 +25,35 @@ function renderStorage() {
   $("#4pm").text(fourStorage);
   $("#5pm").text(fiveStorage);
 }
+// call the fn
 renderStorage();
 
+// click event for all <i> elements. SCOPE IS A PAIN IN MY ASS
 $("i").on("click", function () {
-  // var hourInput = {
-  //   nine: $("#9am").val(),
-  //   ten: $("#10am").val(),
-  //   eleven: $("#11am").val(),
-  //   twelve: $("#12pm").val(),
-  //   one: $("#1pm").val(),
-  //   two: $("#2pm").val(),
-  //   three: $("#3pm").val(),
-  //   four: $("#4pm").val(),
-  //   five: $("#5pm").val()
-  // };
-
   var divId = ["#9", "#10", "#11", "#12", "#1", "#2", "#3", "#4", "#5"];
-
   var textId = ["#9am", "#10am", "#11am", "#12pm", "#1pm", "#2pm", "#3pm", "#4pm", "#5pm"];
 
   var saveClick = $(this).parent().siblings(divId).children(textId);
   var clickVal = saveClick[1].value
   var clickId = saveClick[1].id
-  console.log("Saved text via click: ", clickVal);
-  console.log("Clicked on this ID: ", clickId)
-  // var storageKey = JSON.stringify(clickId);
-  // var storageValue = JSON.stringify(clickVal);
+  // console.log("Saved text via click: ", clickVal);
+  // console.log("Clicked on this ID: ", clickId)
   localStorage.setItem(clickId, clickVal);
   var storedText = localStorage.getItem(clickId);
-
-
-  console.log(storedText)
-
+  // console.log(storedText)
 });
 
+// set the current day and time and display in the header
 $("#currentDay").text(calDay + " -- " + currentTime);
-console.log("Today's date is: ", calDay);
-console.log("The current time is: ", currentTime);
+// console.log("Today's date is: ", calDay);
+// console.log("The current time is: ", currentTime);
 
-console.log("moment.hours ", moment().hours());
+// console.log("moment.hours ", moment().hours());
 
 var hourIds = ["#9", "#10", "#11", "#12", "#1", "#2", "#3", "#4", "#5"];
 
+// if statements to handle what is past, present, and future classes
+// is there a better way to do this? probably. but this was easy copy/paste
 if (moment().hour() === 9) {
   for (var i = 0; i < hourIds.length; i++) {
     $(hourIds[i]).attr("class", "col-md-10 future");
