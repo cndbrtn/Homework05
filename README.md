@@ -8,3 +8,5 @@
 * Click the save icon corresponding to the time slot you want to save to keep your data
 * Even when you refresh your appointments and reminders are still in place! Yay!
 * Never lose track of your commitments again!
+
+[Click here to use the day planner!](http://cndbrtn.github.io/Homework05 "Day Planner")
