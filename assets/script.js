@@ -1,7 +1,29 @@
 var calDay = moment().format("dddd MMMM Do YYYY");
 var currentTime = moment().format("h:mm");
 
-// fn to populate the page from localStorage
+
+// populate the page with html
+var times = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"]
+for (var i = 0; i < times.length; i++) {
+  var divId = ["9", "10", "11", "12", "1", "2", "3", "4", "5"];
+  var textId = ["9am", "10am", "11am", "12pm", "1pm", "2pm", "3pm", "4pm", "5pm"];
+
+  var newRow = $("<div class='row time-block'>");
+  var timeSlot = $("<div class='col-md-1 hour'>");
+  var timeSlotText = $("<span>").text(times[i]);
+  var textParent = $("<div class='col-md-10'>");
+  textParent.attr("id", divId[i]);
+  var newText = $("<textarea class='description'>");
+  newText.attr("id", textId[i]);
+  var newBtn = $("<button class='col-md-1 saveBtn'>");
+  var newI = $("<i class='fas fa-save'>");
+  $(".container").append(newRow);
+  newRow.append(timeSlot, textParent, newBtn);
+  timeSlot.append(timeSlotText);
+  textParent.append(newText);
+  newBtn.append(newI);
+}
+// fn to populate the text areas from localStorage
 function renderStorage() {
   var nineStorage = localStorage.getItem("9am");
   var tenStorage = localStorage.getItem("10am");
@@ -12,8 +34,8 @@ function renderStorage() {
   var threeStorage = localStorage.getItem("3pm");
   var fourStorage = localStorage.getItem("4pm");
   var fiveStorage = localStorage.getItem("5pm");
-  console.log("local storage get: ", localStorage.getItem("9am"))
-  console.log("nineStorage: ", nineStorage)
+  // console.log("local storage get: ", localStorage.getItem("9am"))
+  // console.log("nineStorage: ", nineStorage)
 
   $("#9am").text(nineStorage);
   $("#10am").text(tenStorage);
@@ -29,18 +51,18 @@ function renderStorage() {
 renderStorage();
 
 // click event for all <i> elements. SCOPE IS A PAIN IN MY ASS
-$("i").on("click", function () {
+$("button").on("click", function () {
   var divId = ["#9", "#10", "#11", "#12", "#1", "#2", "#3", "#4", "#5"];
   var textId = ["#9am", "#10am", "#11am", "#12pm", "#1pm", "#2pm", "#3pm", "#4pm", "#5pm"];
 
-  var saveClick = $(this).parent().siblings(divId).children(textId);
+  var saveClick = $(this).siblings(divId).children(textId);
   var clickVal = saveClick[1].value
   var clickId = saveClick[1].id
-  // console.log("Saved text via click: ", clickVal);
-  // console.log("Clicked on this ID: ", clickId)
+  console.log("Saved text via click: ", clickVal);
+  console.log("Clicked on this ID: ", clickId)
   localStorage.setItem(clickId, clickVal);
   var storedText = localStorage.getItem(clickId);
-  // console.log(storedText)
+  console.log("stored text: ", storedText)
 });
 
 // set the current day and time and display in the header
