@@ -2,7 +2,7 @@ var calDay = moment().format("dddd MMMM Do YYYY");
 var currentTime = moment().format("h:mm");
 
 
-// populate the page with html
+// populate the page with html using a loop
 var times = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"]
 for (var i = 0; i < times.length; i++) {
   var divId = ["9", "10", "11", "12", "1", "2", "3", "4", "5"];
@@ -23,6 +23,7 @@ for (var i = 0; i < times.length; i++) {
   textParent.append(newText);
   newBtn.append(newI);
 }
+
 // fn to populate the text areas from localStorage
 function renderStorage() {
   var nineStorage = localStorage.getItem("9am");
@@ -50,7 +51,7 @@ function renderStorage() {
 // call the fn
 renderStorage();
 
-// click event for all <i> elements. SCOPE IS A PAIN IN MY ASS
+// click event for all <button> elements. SCOPE IS A PAIN IN MY ASS
 $("button").on("click", function () {
   var divId = ["#9", "#10", "#11", "#12", "#1", "#2", "#3", "#4", "#5"];
   var textId = ["#9am", "#10am", "#11am", "#12pm", "#1pm", "#2pm", "#3pm", "#4pm", "#5pm"];
